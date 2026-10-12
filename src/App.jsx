@@ -1,15 +1,11 @@
 
 import { Routes, Route, useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
-
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
-
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
-
 import Home from "./pages/Home";
 import Work from "./pages/Work";
-
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
 
