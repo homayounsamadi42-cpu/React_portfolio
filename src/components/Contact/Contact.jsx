@@ -56,9 +56,7 @@ export default function Contact() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    const recipient = "your.email@example.com";
-
+    const recipient = "homayounsamdi42@gmail.com";
     const subject = encodeURIComponent(form.subject);
     const body = encodeURIComponent(
       `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`
