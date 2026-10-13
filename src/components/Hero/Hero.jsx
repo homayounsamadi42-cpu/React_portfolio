@@ -1,4 +1,3 @@
-
 import Button from "../Button/Button";
 import { MoveDown } from "lucide-react";
 import { useTheme } from "../../context/ThemeContext";
@@ -13,7 +12,6 @@ export default function Hero() {
       block: "start",
     });
   };
-
   return (
     <section
       id="home"
@@ -27,7 +25,6 @@ export default function Hero() {
         }
       `}
     >
-      {/* Blue glow */}
       <div
         className={`
           absolute -right-40 -top-40
@@ -41,8 +38,6 @@ export default function Hero() {
           }
         `}
       />
-
-      {/* Bottom glow */}
       <div
         className={`
           absolute -bottom-60 -left-40
@@ -56,8 +51,6 @@ export default function Hero() {
           }
         `}
       />
-
-      {/* Background grid */}
       <div
         className={`
           absolute inset-0
@@ -71,15 +64,12 @@ export default function Hero() {
           }
         `}
       />
-
-      {/* Content */}
       <div
         className="
           relative z-10 mx-auto w-full max-w-7xl
           px-6 pb-20 pt-32 lg:px-10
         "
       >
-        {/* Availability */}
         <div
           className={`
             mb-8 flex items-center gap-3
@@ -98,29 +88,25 @@ export default function Hero() {
               rounded-full bg-blue-500
             "
           />
-
           <span>Available for work</span>
         </div>
-
-        {/* Main layout */}
         <div
           className="
             grid items-center gap-12
             lg:grid-cols-[1.4fr_0.6fr]
           "
         >
-          {/* Left content */}
           <div>
+            <h1 className="text-gray-100">JONIOR</h1>
             <h1
               className="
-                text-[clamp(4rem,11vw,10rem)]
+                text-[clamp(4em,11vw,10rem)]
                 font-semibold leading-[0.82]
                 tracking-[-0.06em]
               "
             >
               WEB
               <br />
-
               <span
                 className={
                   isDark
@@ -131,8 +117,6 @@ export default function Hero() {
                 DESIGNER
               </span>
             </h1>
-
-            {/* Description */}
             <div className="mt-10 max-w-xl">
               <p
                 className={`
@@ -145,8 +129,8 @@ export default function Hero() {
                   }
                 `}
               >
-                I design and build modern digital
-                experiences that combine thoughtful
+                I design and build modern responsive
+                websites that combine thoughtful
                 design with clean, functional code.
               </p>
 

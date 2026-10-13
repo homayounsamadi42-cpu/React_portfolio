@@ -1,18 +1,7 @@
-
 import { useEffect, useRef, useState } from "react";
-import {
-  motion,
-  AnimatePresence,
-  useScroll,
-  useMotionValueEvent,
-} from "framer-motion";
-import { Menu, X, Sun, Moon } from "lucide-react";
-import {
-  Link,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
-
+import {motion,AnimatePresence,useScroll,useMotionValueEvent,} from "framer-motion";
+import { Menu,X, Sun, Moon } from "lucide-react";
+import {Link,useLocation,useNavigate,} from "react-router-dom";
 import Button from "../Button/Button";
 import { useTheme } from "../../context/ThemeContext";
 import photo from "../../assets/photo.png";
@@ -20,24 +9,16 @@ import photo from "../../assets/photo.png";
 export default function Navbar() {
   const [compact, setCompact] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-
   const location = useLocation();
   const navigate = useNavigate();
   const { isDark, toggleTheme } = useTheme();
-
   const previousScrollY = useRef(0);
   const scrollDirection = useRef("up");
-
   const { scrollY } = useScroll();
-
-  // Compact navbar when scrolling down.
-  // Expand it when scrolling up.
   useMotionValueEvent(scrollY, "change", (currentY) => {
     const previousY = previousScrollY.current;
     const difference = currentY - previousY;
-
     if (Math.abs(difference) < 3) return;
-
     if (currentY <= 20) {
       setCompact(false);
       scrollDirection.current = "up";
@@ -48,7 +29,6 @@ export default function Navbar() {
       scrollDirection.current = "up";
       setCompact(false);
     }
-
     previousScrollY.current = currentY;
   });
 
@@ -59,27 +39,19 @@ export default function Navbar() {
     { name: "Process", href: "#process" },
     { name: "Contact", href: "#contact" },
   ];
-
-  // Prevent background scrolling when the mobile menu is open.
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
-
     return () => {
       document.body.style.overflow = "";
     };
   }, [menuOpen]);
-
-  // Handle navigation and section scrolling.
   const goToSection = (href) => {
     setMenuOpen(false);
-
     if (href === "/work") {
       navigate("/work");
       return;
     }
-
     const targetId = href.replace("#", "");
-
     if (location.pathname !== "/") {
       navigate(`/#${targetId}`);
       return;
@@ -91,10 +63,8 @@ export default function Navbar() {
     });
   };
 
-  // Scroll to a section after navigating back to Home.
   useEffect(() => {
     if (location.pathname !== "/" || !location.hash) return;
-
     const targetId = decodeURIComponent(
       location.hash.slice(1)
     );
@@ -108,10 +78,7 @@ export default function Navbar() {
 
     return () => cancelAnimationFrame(frame);
   }, [location.pathname, location.hash]);
-
   const isWorkPage = location.pathname === "/work";
-
-  // Shared theme toggle button.
   const ThemeToggle = ({ mobile = false }) => (
     <motion.button
       type="button"
@@ -168,13 +135,12 @@ export default function Navbar() {
 
   return (
     <>
-      {/* NAVBAR */}
       <motion.nav
         initial={false}
         animate={{
           width: compact
             ? "190px"
-            : "min(1152px, calc(100vw - 48px))",
+            : "min(1190px, calc(100vw - 48px))",
           paddingLeft: compact ? "16px" : "20px",
           paddingRight: compact ? "16px" : "20px",
           backgroundColor: isDark
@@ -208,18 +174,16 @@ export default function Navbar() {
           fixed left-1/2 top-5 z-50
           flex -translate-x-1/2 items-center
           overflow-hidden rounded-full border
-          py-3 backdrop-blur-xl
+          py-2 backdrop-blur-xl
           shadow-[0_8px_40px_rgba(0,0,0,0.2)]
           transition-colors duration-300
           ${isDark ? "text-white" : "text-neutral-950"}
         `}
       >
-        {/* LOGO */}
         <Link
           to="/"
           onClick={(event) => {
             setMenuOpen(false);
-
             if (location.pathname === "/") {
               event.preventDefault();
               window.scrollTo({
@@ -263,8 +227,6 @@ export default function Navbar() {
             Homayoun
           </motion.span>
         </Link>
-
-        {/* DESKTOP NAVIGATION */}
         <AnimatePresence initial={false}>
           {!compact && (
             <motion.div
@@ -320,13 +282,9 @@ export default function Navbar() {
                   )
                 )}
               </div>
-
-              {/* Theme toggle */}
               <div className="ml-6">
                 <ThemeToggle />
               </div>
-
-              {/* Contact button */}
               <div className="ml-4 shrink-0">
                 <Button
                   text="Let's Talk"
@@ -338,15 +296,11 @@ export default function Navbar() {
             </motion.div>
           )}
         </AnimatePresence>
-
-        {/* COMPACT NAVBAR THEME TOGGLE */}
         {compact && (
           <div className="ml-auto hidden md:block">
             <ThemeToggle />
           </div>
         )}
-
-        {/* MOBILE MENU TOGGLE */}
         <motion.button
           type="button"
           whileTap={{ scale: 0.9 }}
@@ -389,8 +343,6 @@ export default function Navbar() {
           </AnimatePresence>
         </motion.button>
       </motion.nav>
-
-      {/* MOBILE MENU OVERLAY */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -481,8 +433,6 @@ export default function Navbar() {
                   )}
                 </motion.div>
               ))}
-
-              {/* Mobile theme toggle */}
               <motion.div
                 variants={{
                   hidden: { opacity: 0, y: 20 },
@@ -495,7 +445,6 @@ export default function Navbar() {
                 className="mt-2 flex items-center gap-4"
               >
                 <ThemeToggle mobile />
-
                 <span
                   className={`text-sm ${
                     isDark
@@ -506,8 +455,6 @@ export default function Navbar() {
                   {isDark ? "Dark mode" : "Light mode"}
                 </span>
               </motion.div>
-
-              {/* Mobile contact button */}
               <motion.div
                 variants={{
                   hidden: { opacity: 0, y: 20 },
