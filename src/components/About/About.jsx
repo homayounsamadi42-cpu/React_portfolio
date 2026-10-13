@@ -7,7 +7,6 @@ import {
 } from "framer-motion";
 
 import {
-  ArrowUpRight,
   Code2,
   Database,
   Layers3,
@@ -15,6 +14,8 @@ import {
   Server,
   Workflow,
 } from "lucide-react";
+
+import Button from "../Button/Button";
 
 // ============================================================
 // DATA
@@ -34,7 +35,7 @@ const capabilities = [
     number: "01",
     title: "Frontend Development",
     description:
-      "Building responsive interfaces with thoughtful layouts, reusable components, and smooth interactions.",
+      "Practicing responsive layouts, reusable React components, and clear user interactions.",
     icon: Code2,
     tags: ["React", "Tailwind CSS"],
   },
@@ -42,7 +43,7 @@ const capabilities = [
     number: "02",
     title: "Backend Development",
     description:
-      "Developing application logic, handling data, and connecting interfaces to reliable backend systems.",
+      "Exploring application logic, APIs, and how frontend interfaces connect to backend services.",
     icon: Server,
     tags: ["Python", "APIs"],
   },
@@ -50,7 +51,7 @@ const capabilities = [
     number: "03",
     title: "Database & Integration",
     description:
-      "Structuring data and connecting the different parts of an application into one working solution.",
+      "Learning to structure data with SQL and connect it to useful application features.",
     icon: Database,
     tags: ["SQL", "Integration"],
   },
@@ -274,7 +275,7 @@ export default function About() {
           />
 
           <span className="text-[10px] tracking-[0.2em] text-white/25">
-            THE DEVELOPER BEHIND THE CODE
+            A JUNIOR DEVELOPER ON THE RISE
           </span>
         </motion.div>
 
@@ -310,9 +311,9 @@ export default function About() {
                 tracking-wide text-white/40
               "
             >
-              From the first idea
+              Learning by building
               <br />
-              to a fully working application.
+              and improving with every project.
             </motion.p>
 
             {/* Main heading */}
@@ -328,18 +329,18 @@ export default function About() {
                 lg:text-[5.4rem]
               "
             >
-              I build the web
+              I'm learning to build
               <br />
 
               <span className="text-white/30">
-                from interface
+                for the web
               </span>
 
               <br />
 
-              to{" "}
+              with{" "}
               <span className="text-blue-500">
-                infrastructure.
+                purpose.
               </span>
             </motion.h2>
 
@@ -353,11 +354,10 @@ export default function About() {
                 sm:text-base sm:leading-8
               "
             >
-              I'm a web developer focused on building modern,
-              responsive, and functional digital experiences.
-              I enjoy combining thoughtful frontend design with
-              programming logic and database-driven features to
-              turn ideas into useful web applications.
+              I'm a motivated junior web developer who enjoys turning ideas
+              into clean, responsive, and useful web experiences. I'm
+              building my skills in frontend development while exploring
+              backend logic and databases through hands-on projects.
             </motion.p>
 
             <motion.p
@@ -368,9 +368,9 @@ export default function About() {
                 sm:text-base sm:leading-8
               "
             >
-              My approach is simple: write clean code, keep the
-              user experience clear, and make every part of the
-              application work together.
+              I'm still growing as a developer, and every project teaches me
+              something new. I value readable code, thoughtful design,
+              curiosity, and the willingness to keep learning.
             </motion.p>
 
             {/* =================================================
@@ -416,42 +416,28 @@ export default function About() {
                 CTA
             ================================================== */}
 
-            <motion.div variants={fadeUp} className="mt-11">
-              <motion.a
-                href="#contact"
-                whileHover={{ scale: 1.035 }}
-                whileTap={{ scale: 0.97 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 300,
-                  damping: 20,
-                }}
-                className="
-                  group inline-flex items-center gap-3
-                  rounded-full bg-white
-                  px-5 py-3
-                  text-xs font-medium text-black
-                "
-              >
-                Let's build something
-
-                <motion.span
-                  whileHover={{ rotate: 45 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 300,
-                    damping: 15,
-                  }}
-                  className="
-                    flex h-7 w-7 items-center justify-center
-                    rounded-full bg-black text-white
-                    transition-colors duration-300
-                    group-hover:bg-blue-600
-                  "
-                >
-                  <ArrowUpRight size={14} />
-                </motion.span>
-              </motion.a>
+            <motion.div
+              variants={fadeUp}
+              whileHover={{ scale: 1.025 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 20,
+              }}
+              className="mt-11 inline-flex"
+            >
+              <Button
+                text="Let's connect and build"
+                variant="secondary"
+                padding="pl-6 pr-2 py-2"
+                rounded="rounded-full"
+                onClick={() =>
+                  document.getElementById("contact")?.scrollIntoView({
+                    behavior: "smooth",
+                  })
+                }
+              />
             </motion.div>
           </motion.div>
 
@@ -588,7 +574,7 @@ export default function About() {
 
                 <div className="absolute left-6 right-6 top-6 flex items-center justify-between">
                   <span className="text-[9px] uppercase tracking-[0.25em] text-white/35">
-                    Application Architecture
+                    How Applications Connect
                   </span>
 
                   <Workflow size={15} className="text-indigo-400" />
@@ -619,11 +605,11 @@ export default function About() {
 
                 <div className="absolute bottom-6 left-6 right-6">
                   <p className="text-[9px] uppercase tracking-[0.25em] text-white/30">
-                    Development mindset
+                    My learning mindset
                   </p>
 
                   <p className="mt-2 text-lg font-medium tracking-[-0.04em] text-white/80">
-                    Every layer matters.
+                    Keep learning. Keep building.
                   </p>
                 </div>
               </motion.div>
@@ -678,7 +664,7 @@ export default function About() {
 
                 <div className="absolute left-6 right-6 top-6 flex items-center justify-between">
                   <span className="text-[9px] uppercase tracking-[0.25em] text-white/40">
-                    Full-Stack Developer
+                    Junior Web Developer
                   </span>
 
                   <Sparkles size={16} className="text-blue-400" />
@@ -746,11 +732,11 @@ export default function About() {
 
                 <div className="absolute bottom-6 left-6 right-6">
                   <p className="text-[9px] uppercase tracking-[0.25em] text-white/30">
-                    Turning ideas into
+                    Learning by building
                   </p>
 
                   <h3 className="mt-2 text-xl font-medium tracking-[-0.04em] sm:text-2xl">
-                    Working products.
+                    Real projects.
                   </h3>
 
                   <div className="mt-4 flex flex-wrap gap-2">
@@ -882,17 +868,17 @@ export default function About() {
           >
             <div>
               <p className="text-[10px] uppercase tracking-[0.3em] text-blue-400">
-                What I Focus On
+                What I'm Learning
               </p>
 
               <h3 className="mt-3 text-2xl font-medium tracking-[-0.05em] sm:text-3xl">
-                Beyond the interface.
+                Growing beyond the interface.
               </h3>
             </div>
 
             <p className="max-w-md text-sm leading-6 text-white/35">
-              I look at the complete application, from the way it
-              looks and feels to the logic and data behind it.
+              I'm developing a broader understanding of web applications—from
+              the user interface to the logic and data that power it.
             </p>
           </motion.div>
 

@@ -1,41 +1,62 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import emailjs from "@emailjs/browser";
+
 import {
-  ArrowUpRight,
-  Mail,
-  MapPin,
-  Send,
-  Sparkles,
-} from "lucide-react";
+  FiArrowUpRight,
+  FiMail,
+  FiMapPin,
+  FiSend,
+  FiCheckCircle,
+  FiAlertCircle,
+  FiGithub,
+  FiCode,
+  FiMessageCircle,
+} from "react-icons/fi";
 
 const contactInfo = [
   {
-    label: "EMAIL",
-    value: "your.homayounsamdi42@gamil.com",
+    icon: FiMail,
+    label: "Email",
+    value: "homayounsamadi42@gmail.com",
     href: "mailto:homayounsamadi42@gmail.com",
-    icon: Mail,
   },
   {
-    label: "LOCATION",
+    icon: FiMapPin,
+    label: "Location",
     value: "Afghanistan",
-    href: "https://maps.google.com/?q=Afghanistan",
-    icon: MapPin,
+    href: null,
   },
   {
-  label: "GITHUB",
-  value: "Explore my projects",
-  href: "https://github.com/homayounsamdi42-cpu",
-  icon: ArrowUpRight,
-},
+    icon: FiGithub,
+    label: "GitHub",
+    value: "View my projects",
+    href: "https://github.com/homayounsamadi42-cpu",
+  },
 ];
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: {
+    opacity: 0,
+    y: 25,
+  },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: "easeOut" },
+    transition: {
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1],
+    },
   },
 };
 
@@ -47,295 +68,384 @@ export default function Contact() {
     message: "",
   });
 
+  const [status, setStatus] = useState("idle");
+  const [statusMessage, setStatusMessage] = useState("");
+
   const handleChange = (event) => {
-    setForm({
-      ...form,
-      [event.target.name]: event.target.value,
-    });
+    const { name, value } = event.target;
+
+    setForm((previous) => ({
+      ...previous,
+      [name]: value,
+    }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const recipient = "homayounsamdi42@gmail.com";
-    const subject = encodeURIComponent(form.subject);
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`
-    );
 
-    window.location.href =
-      `mailto:${recipient}?subject=${subject}&body=${body}`;
+    setStatus("sending");
+    setStatusMessage("");
+
+    try {
+      await emailjs.send(
+        "YOUR_SERVICE_ID",
+        "YOUR_TEMPLATE_ID",
+        {
+          from_name: form.name,
+          from_email: form.email,
+          subject: form.subject,
+          message: form.message,
+          to_email: "homayounsamadi42@gmail.com",
+        },
+        {
+          publicKey: "YOUR_PUBLIC_KEY",
+        }
+      );
+
+      setStatus("success");
+      setStatusMessage(
+        "Your message has been sent successfully. Thank you for reaching out!"
+      );
+
+      setForm({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("EmailJS error:", error);
+
+      setStatus("error");
+      setStatusMessage(
+        "Your message could not be sent. Please try again or contact me by email."
+      );
+    }
   };
-
-  const inputClass =
-    "w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-sm text-white outline-none placeholder:text-white/30 transition focus:border-blue-500/60 focus:bg-blue-500/[0.04]";
 
   return (
     <section
       id="contact"
-      className="relative isolate overflow-hidden bg-neutral-950 px-6 py-28 text-white sm:px-8 lg:px-12 lg:py-36"
+      className="relative overflow-hidden bg-neutral-950 px-4 py-24 text-white sm:px-6 lg:px-8 lg:py-32"
     >
-      {/* Background lighting */}
-      <div className="pointer-events-none absolute -left-40 top-20 h-96 w-96 rounded-full bg-blue-600/10 blur-[130px]" />
-      <div className="pointer-events-none absolute -right-32 top-1/4 h-96 w-96 rounded-full bg-indigo-600/10 blur-[130px]" />
+      {/* Background effects */}
+      <div className="pointer-events-none absolute -right-40 top-20 h-96 w-96 rounded-full bg-blue-600/10 blur-[130px]" />
+      <div className="pointer-events-none absolute -bottom-40 -left-40 h-96 w-96 rounded-full bg-indigo-600/10 blur-[130px]" />
 
-      {/* Background grid */}
-      <div className="pointer-events-none absolute inset-0 opacity-[0.035] [background-image:linear-gradient(rgba(255,255,255,.5)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.5)_1px,transparent_1px)] [background-size:80px_80px]" />
-
-      <div className="relative z-10 mx-auto max-w-7xl">
+      <div className="relative mx-auto max-w-6xl">
+        {/* Section heading */}
         <motion.div
+          variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeUp}
-          className="mb-14 flex items-center gap-4"
+          viewport={{ once: true, amount: 0.2 }}
+          className="mb-16 max-w-3xl"
         >
-          <span className="text-[10px] uppercase tracking-[0.35em] text-blue-400">
-            Get In Touch
-          </span>
-          <div className="h-px w-20 bg-gradient-to-r from-blue-500 to-transparent" />
+          <motion.div
+            variants={itemVariants}
+            className="mb-5 inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-2 text-sm text-blue-400"
+          >
+            <FiMessageCircle size={16} />
+            <span>Let's Connect</span>
+          </motion.div>
+
+          <motion.h2
+            variants={itemVariants}
+            className="text-4xl font-semibold tracking-tight sm:text-5xl lg:text-7xl"
+          >
+            Have an idea?
+            <span className="block text-blue-500">
+              Let's talk about it.
+            </span>
+          </motion.h2>
+
+          <motion.p
+            variants={itemVariants}
+            className="mt-6 max-w-2xl text-base leading-8 text-neutral-400 sm:text-lg"
+          >
+            I'm a motivated junior web developer who enjoys learning,
+            building projects, and improving my skills. I'm open to
+            internships, collaborative projects, mentorship, and
+            opportunities to grow as a developer. If you have an idea
+            or would like to connect, I'd love to hear from you.
+          </motion.p>
         </motion.div>
 
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-20">
-          {/* LEFT SIDE */}
+        {/* Main content */}
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+          {/* Contact information */}
           <motion.div
+            variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.15 }}
-            transition={{ staggerChildren: 0.12 }}
-            variants={{
-              hidden: {},
-              visible: {
-                transition: { staggerChildren: 0.12 },
-              },
-            }}
+            className="flex flex-col"
           >
-            <motion.p
-              variants={fadeUp}
-              className="mb-5 text-sm text-white/40"
-            >
-              Have an idea in mind?
-              <br />
-              Let's make it real.
-            </motion.p>
+            <motion.div variants={itemVariants} className="mb-7">
+              <h3 className="text-2xl font-semibold">
+                Get in touch
+              </h3>
+              <p className="mt-3 leading-7 text-neutral-400">
+                Have a question, an opportunity, or a project idea?
+                Feel free to reach out. I'm always happy to connect
+                and learn from others.
+              </p>
+            </motion.div>
 
-            <motion.h2
-              variants={fadeUp}
-              className="text-5xl font-semibold leading-[0.98] tracking-[-0.06em] sm:text-6xl lg:text-7xl"
-            >
-              Let's build
-              <br />
-              <span className="text-white/30">something</span>{" "}
-              <span className="text-blue-500">great.</span>
-            </motion.h2>
-
-            <motion.p
-              variants={fadeUp}
-              className="mt-7 max-w-lg text-sm leading-7 text-white/45 sm:text-base sm:leading-8"
-            >
-              I'm open to discussing web development projects,
-              creative collaborations, and new opportunities.
-              If you have an interesting idea, I'd love to hear
-              about it.
-            </motion.p>
-
-            {/* Contact information */}
-            <div className="mt-10 space-y-3">
+            <div className="space-y-4">
               {contactInfo.map((item) => {
                 const Icon = item.icon;
 
-                return (
-                  <motion.a
-                    key={item.label}
-                    variants={fadeUp}
-                    href={item.href}
-                    target={
-                      item.label === "LOCATION" ||
-                      item.label === "GITHUB"
-                        ? "_blank"
-                        : undefined
-                    }
-                    rel={
-                      item.label === "LOCATION" ||
-                      item.label === "GITHUB"
-                        ? "noreferrer"
-                        : undefined
-                    }
-                    whileHover={{ x: 5 }}
-                    className="group flex items-center gap-4 rounded-xl border border-transparent py-3 transition hover:border-white/[0.06] hover:bg-white/[0.025]"
-                  >
-                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.035] text-blue-400 transition group-hover:border-blue-500/40 group-hover:bg-blue-500/10">
-                      <Icon size={20} strokeWidth={1.5} />
-                    </span>
+                const content = (
+                  <div className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-all duration-300 hover:border-blue-500/40 hover:bg-white/[0.06]">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400 transition-colors duration-300 group-hover:bg-blue-500 group-hover:text-white">
+                      <Icon size={21} />
+                    </div>
 
-                    <span className="min-w-0 flex-1">
-                      <span className="block text-[9px] tracking-[0.25em] text-white/35">
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm text-neutral-500">
                         {item.label}
-                      </span>
-                      <span className="mt-1 block truncate text-sm text-white/80">
+                      </p>
+                      <p className="mt-1 break-words text-sm font-medium text-neutral-200 sm:text-base">
                         {item.value}
-                      </span>
-                    </span>
-                    <ArrowUpRight
-                      size={17}
-                      className="mr-2 text-white/30 transition group-hover:text-blue-400"
-                    />
-                  </motion.a>
+                      </p>
+                    </div>
+
+                    {item.href && (
+                      <FiArrowUpRight
+                        size={19}
+                        className="shrink-0 text-neutral-500 transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-blue-400"
+                      />
+                    )}
+                  </div>
+                );
+
+                return (
+                  <motion.div key={item.label} variants={itemVariants}>
+                    {item.href ? (
+                      <a
+                        href={item.href}
+                        target={
+                          item.label === "GitHub" ? "_blank" : undefined
+                        }
+                        rel={
+                          item.label === "GitHub"
+                            ? "noreferrer"
+                            : undefined
+                        }
+                      >
+                        {content}
+                      </a>
+                    ) : (
+                      content
+                    )}
+                  </motion.div>
                 );
               })}
             </div>
 
-            {/* Availability */}
+            {/* Learning message */}
             <motion.div
-              variants={fadeUp}
-              className="mt-8 flex items-center gap-4 border-t border-white/10 pt-7"
+              variants={itemVariants}
+              className="mt-8 rounded-2xl border border-blue-500/20 bg-gradient-to-br from-blue-500/10 to-indigo-500/5 p-6"
             >
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-blue-500/20 bg-blue-500/[0.07] text-blue-400">
-                <Send size={18} />
+              <div className="mb-3 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/15 text-blue-400">
+                  <FiCode size={20} />
+                </div>
+
+                <h4 className="font-semibold">
+                  Always learning
+                </h4>
               </div>
 
-              <div>
-                <p className="text-[10px] uppercase tracking-[0.2em] text-white/70">
-                  Open to opportunities
-                </p>
-                <p className="mt-1 text-xs text-white/35">
-                  Let's discuss your next project.
-                </p>
-              </div>
+              <p className="text-sm leading-7 text-neutral-400">
+                Every project is a chance to learn something new,
+                solve problems, and become a better developer.
+                I'm excited to keep improving and work with people
+                who share that mindset.
+              </p>
             </motion.div>
           </motion.div>
 
-          {/* RIGHT SIDE — FORM */}
+          {/* Contact form */}
           <motion.div
             initial={{ opacity: 0, y: 35 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.8, delay: 0.15 }}
-            className="relative"
+            transition={{
+              duration: 0.7,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="rounded-3xl border border-white/10 bg-white/[0.035] p-5 sm:p-8 lg:p-10"
           >
-            {/* Decorative glow */}
-            <div className="pointer-events-none absolute -right-10 -top-10 h-48 w-48 rounded-full border border-blue-500/15" />
+            <div className="mb-8">
+              <h3 className="text-2xl font-semibold">
+                Send me a message
+              </h3>
+              <p className="mt-2 text-sm leading-6 text-neutral-400">
+                Fill in the form below, and I'll get back to you
+                as soon as I can.
+              </p>
+            </div>
 
-            <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-neutral-900/70 p-5 shadow-2xl backdrop-blur-xl sm:p-8 lg:p-9">
-              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-400/60 to-transparent" />
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                <div>
+                  <label
+                    htmlFor="contact-name"
+                    className="mb-2 block text-sm font-medium text-neutral-300"
+                  >
+                    Your name
+                  </label>
 
-              <div className="mb-8 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-blue-500/20 bg-blue-500/[0.08] text-blue-400">
-                  <Sparkles size={18} />
+                  <input
+                    id="contact-name"
+                    type="text"
+                    name="name"
+                    value={form.name}
+                    onChange={handleChange}
+                    placeholder="John Doe"
+                    autoComplete="name"
+                    required
+                    maxLength={100}
+                    className="w-full rounded-xl border border-white/10 bg-neutral-900 px-4 py-3.5 text-sm text-white outline-none transition-all placeholder:text-neutral-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10"
+                  />
                 </div>
 
                 <div>
-                  <h3 className="text-base font-medium">
-                    Send a message
-                  </h3>
-                  <p className="mt-1 text-xs text-white/35">
-                    Tell me about your idea.
-                  </p>
+                  <label
+                    htmlFor="contact-email"
+                    className="mb-2 block text-sm font-medium text-neutral-300"
+                  >
+                    Email address
+                  </label>
+
+                  <input
+                    id="contact-email"
+                    type="email"
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    placeholder="john@example.com"
+                    autoComplete="email"
+                    required
+                    maxLength={254}
+                    className="w-full rounded-xl border border-white/10 bg-neutral-900 px-4 py-3.5 text-sm text-white outline-none transition-all placeholder:text-neutral-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10"
+                  />
                 </div>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div>
-                    <label
-                      htmlFor="contact-name"
-                      className="mb-2 block text-xs text-white/45"
-                    >
-                      Your name
-                    </label>
-                    <input
-                      id="contact-name"
-                      name="name"
-                      type="text"
-                      placeholder="Your name"
-                      autoComplete="name"
-                      required
-                      value={form.name}
-                      onChange={handleChange}
-                      className={inputClass}
-                    />
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="contact-email"
-                      className="mb-2 block text-xs text-white/45"
-                    >
-                      Your email
-                    </label>
-                    <input
-                      id="contact-email"
-                      name="email"
-                      type="email"
-                      placeholder="you@example.com"
-                      autoComplete="email"
-                      required
-                      value={form.email}
-                      onChange={handleChange}
-                      className={inputClass}
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="contact-subject"
-                    className="mb-2 block text-xs text-white/45"
-                  >
-                    Subject
-                  </label>
-                  <input
-                    id="contact-subject"
-                    name="subject"
-                    type="text"
-                    placeholder="Project inquiry"
-                    required
-                    value={form.subject}
-                    onChange={handleChange}
-                    className={inputClass}
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="contact-message"
-                    className="mb-2 block text-xs text-white/45"
-                  >
-                    Project details
-                  </label>
-                  <textarea
-                    id="contact-message"
-                    name="message"
-                    rows={5}
-                    placeholder="Tell me about your project..."
-                    required
-                    value={form.message}
-                    onChange={handleChange}
-                    className={`${inputClass} resize-y`}
-                  />
-                </div>
-
-                <motion.button
-                  type="submit"
-                  whileHover={{ scale: 1.015 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="group flex w-full items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-5 py-4 text-sm font-medium text-white shadow-lg shadow-blue-900/20 transition hover:shadow-blue-600/20"
+              <div>
+                <label
+                  htmlFor="contact-subject"
+                  className="mb-2 block text-sm font-medium text-neutral-300"
                 >
-                  Send Message
-                  <Send
-                    size={16}
-                    className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-1"
-                  />
-                </motion.button>
+                  Subject
+                </label>
 
-                <p className="text-center text-[10px] leading-5 text-white/25">
-                  Submitting opens your email application.
-                  <br />
-                  Replace the example email before publishing.
-                </p>
-              </form>
-            </div>
+                <input
+                  id="contact-subject"
+                  type="text"
+                  name="subject"
+                  value={form.subject}
+                  onChange={handleChange}
+                  placeholder="What would you like to discuss?"
+                  required
+                  maxLength={150}
+                  className="w-full rounded-xl border border-white/10 bg-neutral-900 px-4 py-3.5 text-sm text-white outline-none transition-all placeholder:text-neutral-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="contact-message"
+                  className="mb-2 block text-sm font-medium text-neutral-300"
+                >
+                  Your message
+                </label>
+
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  value={form.message}
+                  onChange={handleChange}
+                  placeholder="Tell me a little about your idea..."
+                  rows={5}
+                  required
+                  maxLength={5000}
+                  className="w-full resize-y rounded-xl border border-white/10 bg-neutral-900 px-4 py-3.5 text-sm leading-7 text-white outline-none transition-all placeholder:text-neutral-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10"
+                />
+              </div>
+
+              {/* Submission feedback */}
+              {statusMessage && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  role="status"
+                  aria-live="polite"
+                  className={`flex items-start gap-3 rounded-xl border p-4 text-sm leading-6 ${
+                    status === "success"
+                      ? "border-green-500/20 bg-green-500/10 text-green-300"
+                      : status === "error"
+                      ? "border-red-500/20 bg-red-500/10 text-red-300"
+                      : "border-white/10 bg-white/5 text-neutral-300"
+                  }`}
+                >
+                  {status === "success" ? (
+                    <FiCheckCircle className="mt-0.5 shrink-0" size={18} />
+                  ) : (
+                    <FiAlertCircle className="mt-0.5 shrink-0" size={18} />
+                  )}
+
+                  <p>{statusMessage}</p>
+                </motion.div>
+              )}
+
+              <motion.button
+                type="submit"
+                disabled={status === "sending"}
+                whileHover={
+                  status !== "sending" ? { scale: 1.01 } : {}
+                }
+                whileTap={
+                  status !== "sending" ? { scale: 0.98 } : {}
+                }
+                className="group flex w-full items-center justify-center gap-3 rounded-full bg-blue-600 px-6 py-4 font-medium text-white transition-colors duration-300 hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                <span>
+                  {status === "sending"
+                    ? "Sending message..."
+                    : "Send message"}
+                </span>
+
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-neutral-950 transition-colors duration-300 group-hover:bg-neutral-950 group-hover:text-white">
+                  <FiSend size={16} />
+                </span>
+              </motion.button>
+
+              <p className="text-center text-xs leading-5 text-neutral-500">
+                Your information will be used to respond to your message.
+              </p>
+            </form>
           </motion.div>
         </div>
+
+        {/* Bottom note */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="mt-20 border-t border-white/10 pt-8 text-center"
+        >
+          <p className="text-sm text-neutral-500">
+            Thank you for visiting my portfolio.
+            <span className="mx-2 text-blue-500">✦</span>
+            I'm looking forward to learning, building, and connecting.
+          </p>
+        </motion.div>
       </div>
     </section>
   );

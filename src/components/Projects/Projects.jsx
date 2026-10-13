@@ -22,7 +22,7 @@ const projects = [
     category: "Web Design",
     image: project1,
     description:
-      "A refined consulting experience built around clarity, trust and strong visual hierarchy.",
+      "A practice project where I explore clear layouts, readable content, and professional web design.",
     tags: ["React", "UI/UX", "Responsive"],
   },
   {
@@ -31,7 +31,7 @@ const projects = [
     category: "AI Agency",
     image: project2,
     description:
-      "A futuristic digital experience designed for an AI-focused creative agency.",
+      "A website concept that helps me practice modern layouts, visual styling, and interactive frontend experiences.",
     tags: ["React", "Animation", "Tailwind"],
   },
   {
@@ -40,7 +40,7 @@ const projects = [
     category: "Creative Studio",
     image: project3,
     description:
-      "An expressive studio website combining bold typography with immersive visual direction.",
+      "A creative website concept where I experiment with bold typography, visual storytelling, and responsive design.",
     tags: ["Creative", "Motion", "Frontend"],
   },
   {
@@ -49,7 +49,7 @@ const projects = [
     category: "E-Commerce",
     image: project4,
     description:
-      "A modern commerce interface focused on product presentation and conversion.",
+      "An e-commerce interface concept for practicing product presentation, user experience, and responsive development.",
     tags: ["E-Commerce", "UX", "Development"],
   },
 ];
@@ -181,39 +181,70 @@ export default function Projects() {
         />
       </div>
 
-      {/* STICKY ANIMATION STAGE */}
+      {/* MOBILE / SMALL TABLET: ONE-COLUMN PROJECT LIST */}
 
-      {/* MOBILE / SMALL TABLET: regular one-column project list */}
       <div className="relative z-10 px-4 py-20 sm:px-6 lg:hidden">
         <div className="mx-auto max-w-xl">
           <div className="mb-10">
             <div className="mb-5 flex items-center gap-3">
               <span className="h-px w-8 bg-blue-500" />
-              <span className={`text-[10px] uppercase tracking-[0.28em] ${
-                isDark ? "text-white/45" : "text-neutral-500"
-              }`}>
-                Full-Stack Development
+
+              <span
+                className={`text-[10px] uppercase tracking-[0.28em] ${
+                  isDark
+                    ? "text-white/45"
+                    : "text-neutral-500"
+                }`}
+              >
+                Junior Web Developer
               </span>
             </div>
+
             <h2 className="text-5xl font-semibold leading-[0.9] tracking-[-0.07em] sm:text-6xl">
-              Design.<br />Build.<br />
-              <span className={isDark ? "text-white/25" : "text-neutral-950/20"}>
-                Deploy.
+              Learn.
+              <br />
+              Build.
+              <br />
+
+              <span
+                className={
+                  isDark
+                    ? "text-white/25"
+                    : "text-neutral-950/20"
+                }
+              >
+                Improve.
               </span>
             </h2>
-            <p className={`mt-5 max-w-md text-sm leading-relaxed ${
-              isDark ? "text-white/55" : "text-neutral-600"
-            }`}>
-              From intuitive user interfaces to powerful backend systems, I build
-              modern, responsive web applications with clean code and thoughtful design.
+
+            <p
+              className={`mt-5 max-w-md text-sm leading-relaxed ${
+                isDark
+                  ? "text-white/55"
+                  : "text-neutral-600"
+              }`}
+            >
+              I’m a motivated junior web developer learning through
+              hands-on projects. I enjoy building responsive
+              interfaces, exploring modern web technologies, and
+              improving my coding skills with every project.
             </p>
+
             <div className="mt-5 flex flex-wrap gap-2">
-              {["React", "Tailwind CSS", "Node.js", "SQL"].map((tech) => (
-                <span key={tech} className={`rounded-full border px-3 py-1.5 text-[10px] ${
-                  isDark
-                    ? "border-white/10 bg-white/[0.03] text-white/55"
-                    : "border-neutral-900/10 bg-white/70 text-neutral-600"
-                }`}>
+              {[
+                "React",
+                "Tailwind CSS",
+                "JavaScript",
+                "Learning SQL",
+              ].map((tech) => (
+                <span
+                  key={tech}
+                  className={`rounded-full border px-3 py-1.5 text-[10px] ${
+                    isDark
+                      ? "border-white/10 bg-white/[0.03] text-white/55"
+                      : "border-neutral-900/10 bg-white/70 text-neutral-600"
+                  }`}
+                >
                   {tech}
                 </span>
               ))}
@@ -227,7 +258,11 @@ export default function Projects() {
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.12 }}
-                transition={{ duration: 0.35, delay: Math.min(index * 0.04, 0.12), ease: "easeOut" }}
+                transition={{
+                  duration: 0.35,
+                  delay: Math.min(index * 0.04, 0.12),
+                  ease: "easeOut",
+                }}
                 className={`w-full overflow-hidden rounded-2xl border ${
                   isDark
                     ? "border-white/10 bg-neutral-900"
@@ -242,24 +277,50 @@ export default function Projects() {
                     className="h-full w-full object-cover transition-transform duration-500 hover:scale-[1.03]"
                   />
                 </div>
+
                 <div className="p-5 sm:p-6">
                   <div className="mb-3 flex items-center justify-between gap-3">
-                    <span className="text-xs font-medium text-blue-500">{project.number}</span>
-                    <span className={`text-[10px] uppercase tracking-[0.18em] ${
-                      isDark ? "text-white/40" : "text-neutral-500"
-                    }`}>{project.category}</span>
+                    <span className="text-xs font-medium text-blue-500">
+                      {project.number}
+                    </span>
+
+                    <span
+                      className={`text-[10px] uppercase tracking-[0.18em] ${
+                        isDark
+                          ? "text-white/40"
+                          : "text-neutral-500"
+                      }`}
+                    >
+                      {project.category}
+                    </span>
                   </div>
+
                   <h3 className="text-2xl font-semibold tracking-tight sm:text-3xl">
                     {project.title}
                   </h3>
-                  <p className={`mt-3 text-sm leading-relaxed ${
-                    isDark ? "text-white/55" : "text-neutral-600"
-                  }`}>{project.description}</p>
+
+                  <p
+                    className={`mt-3 text-sm leading-relaxed ${
+                      isDark
+                        ? "text-white/55"
+                        : "text-neutral-600"
+                    }`}
+                  >
+                    {project.description}
+                  </p>
+
                   <div className="mt-4 flex flex-wrap gap-2">
                     {project.tags.map((tag) => (
-                      <span key={tag} className={`rounded-full px-3 py-1 text-[10px] ${
-                        isDark ? "bg-white/[0.07] text-white/65" : "bg-neutral-100 text-neutral-600"
-                      }`}>{tag}</span>
+                      <span
+                        key={tag}
+                        className={`rounded-full px-3 py-1 text-[10px] ${
+                          isDark
+                            ? "bg-white/[0.07] text-white/65"
+                            : "bg-neutral-100 text-neutral-600"
+                        }`}
+                      >
+                        {tag}
+                      </span>
                     ))}
                   </div>
                 </div>
@@ -269,7 +330,8 @@ export default function Projects() {
         </div>
       </div>
 
-      {/* DESKTOP: sticky scroll-driven stacking-to-grid animation */}
+      {/* DESKTOP: STICKY SCROLL-DRIVEN ANIMATION */}
+
       <div className="hidden sticky top-0 h-screen overflow-hidden lg:block">
         <div
           className="
@@ -309,7 +371,7 @@ export default function Projects() {
                   }
                 `}
               >
-                Full-Stack Development
+                Junior Web Developer
               </span>
             </div>
 
@@ -321,7 +383,7 @@ export default function Projects() {
                 tracking-[-0.075em]
               "
             >
-              Design.
+              Learn.
               <br />
               Build.
               <br />
@@ -333,7 +395,7 @@ export default function Projects() {
                     : "text-neutral-950/20"
                 }
               >
-                Deploy.
+                Improve.
               </span>
             </h2>
 
@@ -349,33 +411,36 @@ export default function Projects() {
                 }
               `}
             >
-              From intuitive user interfaces to powerful backend
-              systems, I build modern, responsive web applications
-              that bring ideas to life through clean code,
-              thoughtful design, and functional experiences.
+              I’m a motivated junior web developer growing through
+              practical experience. I enjoy creating responsive
+              React interfaces, exploring modern web technologies,
+              and developing my skills one project at a time.
             </p>
 
             {/* Technologies */}
             <div className="mt-7 flex flex-wrap gap-2">
-              {["React", "Tailwind CSS", "Node.js", "SQL"].map(
-                (tech) => (
-                  <span
-                    key={tech}
-                    className={`
-                      rounded-full border px-3 py-1.5
-                      text-[9px] tracking-wide
-                      transition-colors duration-500
-                      ${
-                        isDark
-                          ? "border-white/10 bg-white/[0.03] text-white/50"
-                          : "border-neutral-900/10 bg-white/70 text-neutral-600"
-                      }
-                    `}
-                  >
-                    {tech}
-                  </span>
-                )
-              )}
+              {[
+                "React",
+                "Tailwind CSS",
+                "JavaScript",
+                "Learning SQL",
+              ].map((tech) => (
+                <span
+                  key={tech}
+                  className={`
+                    rounded-full border px-3 py-1.5
+                    text-[9px] tracking-wide
+                    transition-colors duration-500
+                    ${
+                      isDark
+                        ? "border-white/10 bg-white/[0.03] text-white/50"
+                        : "border-neutral-900/10 bg-white/70 text-neutral-600"
+                    }
+                  `}
+                >
+                  {tech}
+                </span>
+              ))}
             </div>
 
             {/* Project metadata */}
@@ -395,11 +460,13 @@ export default function Projects() {
 
               <span
                 className={`h-px w-6 ${
-                  isDark ? "bg-white/15" : "bg-neutral-900/15"
+                  isDark
+                    ? "bg-white/15"
+                    : "bg-neutral-900/15"
                 }`}
               />
 
-              <span>Full-Stack Portfolio</span>
+              <span>Learning Through Projects</span>
             </div>
           </motion.div>
 
@@ -470,7 +537,11 @@ export default function Projects() {
               className={`
                 hidden h-px w-32 overflow-hidden
                 transition-colors duration-500 sm:block
-                ${isDark ? "bg-white/10" : "bg-neutral-900/10"}
+                ${
+                  isDark
+                    ? "bg-white/10"
+                    : "bg-neutral-900/10"
+                }
               `}
             >
               <motion.div
