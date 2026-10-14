@@ -172,7 +172,6 @@ export default function Hero() {
                 }
               `}
             >
-              {/* Image glow */}
               <div
                 className={`
                   absolute inset-5 rounded-full
@@ -184,8 +183,6 @@ export default function Hero() {
                   }
                 `}
               />
-
-              {/* Profile image */}
               <div
                 className={`
                   relative h-full w-full
@@ -228,7 +225,7 @@ export default function Hero() {
                 text-xs uppercase tracking-widest
               `}
             >
-              Full-Stack Developer
+              Jonior web Developer
             </div>
           </div>
         </div>

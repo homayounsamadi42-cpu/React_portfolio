@@ -9,7 +9,6 @@ import {
 
 import { useTheme } from "../../context/ThemeContext";
 import ProjectCard from "./ProjectCard";
-
 import project1 from "../../assets/pr1.png";
 import project2 from "../../assets/pr2.png";
 import project3 from "../../assets/pr3.png";
@@ -18,17 +17,17 @@ import project4 from "../../assets/pr4.png";
 const projects = [
   {
     number: "01",
-    title: "Kora Consulting",
-    category: "Web Design",
+    title: "English To Persian Dictionary",
+    category: "Custom tkinter, Python",
     image: project1,
     description:
-      "A practice project where I explore clear layouts, readable content, and professional web design.",
-    tags: ["React", "UI/UX", "Responsive"],
+      "A helpful and light-weight ditionary based on customtkinter library in python .",
+    tags: ["Custom Tkinter", "Dictionary", "Python"],
   },
   {
     number: "02",
-    title: "KYMA AI",
-    category: "AI Agency",
+    title: "HOSPIC",
+    category: "Practice",
     image: project2,
     description:
       "A website concept that helps me practice modern layouts, visual styling, and interactive frontend experiences.",
@@ -36,8 +35,8 @@ const projects = [
   },
   {
     number: "03",
-    title: "MUGEN Creative",
-    category: "Creative Studio",
+    title: "VITAL_FLOW",
+    category: "Creative Design",
     image: project3,
     description:
       "A creative website concept where I experiment with bold typography, visual storytelling, and responsive design.",
@@ -45,12 +44,12 @@ const projects = [
   },
   {
     number: "04",
-    title: "AXNN Retail",
+    title: "Store Database",
     category: "E-Commerce",
     image: project4,
     description:
-      "An e-commerce interface concept for practicing product presentation, user experience, and responsive development.",
-    tags: ["E-Commerce", "UX", "Development"],
+      "An e-commerce database concept for practicing database creation and management systems.",
+    tags: ["E-Commerce", "Database", "Development"],
   },
 ];
 
@@ -164,8 +163,6 @@ export default function Projects() {
             }
           `}
         />
-
-        {/* Background grid */}
         <div
           className={`
             absolute inset-0
@@ -519,7 +516,6 @@ export default function Projects() {
               `}
             >
               <span>Scroll to explore</span>
-
               <motion.span
                 animate={{ y: [0, 5, 0] }}
                 transition={{

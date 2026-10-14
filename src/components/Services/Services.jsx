@@ -1,21 +1,13 @@
 import React from "react";
-
 import {
   motion,
 } from "framer-motion";
-
 import {
   Monitor,
   Smartphone,
   Zap,
   ArrowUpRight,
 } from "lucide-react";
-
-
-// ============================================================
-// SERVICES DATA
-// ============================================================
-
 const services = [
   {
     number: "01",
@@ -42,76 +34,53 @@ const services = [
   },
 ];
 
-
-// ============================================================
-// COMPONENT
-// ============================================================
-
 export default function Services() {
-
   return (
     <section
       id="services"
-
       className="
         relative
         overflow-hidden
-
         bg-neutral-950
-
         px-6
         py-32
-
         text-white
-
         sm:px-8
         md:py-40
         lg:px-12
         lg:py-48
       "
     >
-
       <div
         className="
           relative
           z-10
-
           mx-auto
           max-w-7xl
         "
       >
-
-        {/* ====================================================
-            HEADER
-        ===================================================== */}
-
         <motion.div
           initial={{
             opacity: 0,
             y: 50,
           }}
-
           whileInView={{
             opacity: 1,
             y: 0,
           }}
-
           viewport={{
             once: true,
             amount: 0.4,
           }}
-
           transition={{
             duration: 0.8,
             ease: [0.22, 1, 0.36, 1],
           }}
-
           className="
             mb-16
             max-w-3xl
           "
         >
-
           <span
             className="
               text-[10px]
@@ -122,8 +91,6 @@ export default function Services() {
           >
             04 — Services
           </span>
-
-
           <h2
             className="
               mt-5

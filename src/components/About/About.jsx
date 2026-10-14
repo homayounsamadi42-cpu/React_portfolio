@@ -881,9 +881,6 @@ export default function About() {
               the user interface to the logic and data that power it.
             </p>
           </motion.div>
-
-          {/* Capability cards */}
-
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -893,7 +890,6 @@ export default function About() {
           >
             {capabilities.map((item) => {
               const Icon = item.icon;
-
               return (
                 <motion.article
                   key={item.number}
@@ -914,8 +910,6 @@ export default function About() {
                     p-6 sm:p-7
                   "
                 >
-                  {/* Hover glow */}
-
                   <div
                     className="
                       pointer-events-none absolute
@@ -927,7 +921,6 @@ export default function About() {
                       group-hover:opacity-100
                     "
                   />
-
                   <div className="relative z-10">
                     <div className="flex items-start justify-between">
                       <div
@@ -943,20 +936,16 @@ export default function About() {
                       >
                         <Icon size={21} strokeWidth={1.5} />
                       </div>
-
                       <span className="font-mono text-xs text-white/20">
                         /{item.number}
                       </span>
                     </div>
-
                     <h4 className="mt-7 text-lg font-medium tracking-[-0.035em]">
                       {item.title}
                     </h4>
-
                     <p className="mt-3 min-h-[72px] text-sm leading-6 text-white/40">
                       {item.description}
                     </p>
-
                     <div className="mt-6 flex flex-wrap gap-2">
                       {item.tags.map((tag) => (
                         <span
@@ -972,9 +961,6 @@ export default function About() {
                         </span>
                       ))}
                     </div>
-
-                    {/* Animated bottom line */}
-
                     <motion.div
                       initial={{ scaleX: 0 }}
                       whileInView={{ scaleX: 1 }}

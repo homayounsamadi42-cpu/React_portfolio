@@ -5,6 +5,8 @@ import {
   Mail,
   ArrowUpRight,
 } from "lucide-react";
+import { FaGithub } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
 import { a } from "framer-motion/client";
 
 const navigation = [
@@ -17,16 +19,16 @@ const socials = [
   {
     label: "GitHub",
     href: "https://github.com/homayounsamadi42-cpu",
-    icon: ArrowUpRight,
+    icon: FaGithub,
   },
   {
     label: "LinkedIn",
     href: "https://linkedin.com/in/your-username",
-    icon: ArrowUpRight,
+    icon:FaLinkedin,
   },
   {
     label: "Email",
-    href: "mailto:your.email@example.com",
+    href: "mailto:homayounsamadi42@gamil.com",
     icon: Mail,
   },
 ];
@@ -55,7 +57,7 @@ export default function Footer() {
                 Homayoun
               </span>
               <span className="mt-1 block text-xs text-white/35">
-                Full-Stack Web Developer
+                Jonior Web Developer
               </span>
             </span>
           </motion.a>
