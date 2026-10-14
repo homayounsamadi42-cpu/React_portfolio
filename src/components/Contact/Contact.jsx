@@ -12,14 +12,14 @@ import {
 const contactInfo = [
   {
     label: "EMAIL",
-    value: "your.homayounsamdi42@gamil.com",
+    value: "homayounsamdi42@gamil.com",
     href: "mailto:homayounsamadi42@gmail.com",
     icon: Mail,
   },
   {
     label: "LOCATION",
     value: "Afghanistan",
-    href: "https://maps.google.com/?q=Afghanistan",
+    href: "https://maps.google.com/?q=Afghanistan/?p=Kabul",
     icon: MapPin,
   },
   {
@@ -51,15 +51,12 @@ export default function Contact() {
     subject: "",
     message: "",
   });
-
   const handleChange = (event) => {
     setForm({
       ...form,
       [event.target.name]: event.target.value,
     });
-  };
-
-  
+  }; 
 const handleSubmit = async (event) => {
   event.preventDefault();
 
@@ -372,7 +369,6 @@ const handleSubmit = async (event) => {
                     className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-1"
                   />
                 </motion.button>
-                
                 {submitStatus.message && (
                   <p
                     role="status"

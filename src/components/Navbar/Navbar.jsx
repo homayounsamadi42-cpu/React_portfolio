@@ -31,7 +31,6 @@ export default function Navbar() {
     }
     previousScrollY.current = currentY;
   });
-
   const navItems = [
     { name: "Work", href: "/work" },
     { name: "About", href: "#about" },
@@ -79,59 +78,6 @@ export default function Navbar() {
     return () => cancelAnimationFrame(frame);
   }, [location.pathname, location.hash]);
   const isWorkPage = location.pathname === "/work";
-  const ThemeToggle = ({ mobile = false }) => (
-    <motion.button
-      type="button"
-      onClick={toggleTheme}
-      whileTap={{ scale: 0.88 }}
-      whileHover={{ scale: 1.05 }}
-      aria-label={
-        isDark ? "Switch to light mode" : "Switch to dark mode"
-      }
-      title={isDark ? "Switch to light mode" : "Switch to dark mode"}
-      className={`
-        relative flex shrink-0 items-center justify-center
-        overflow-hidden rounded-full border
-        transition-colors duration-300
-        ${
-          mobile
-            ? "h-11 w-11"
-            : "h-10 w-10"
-        }
-        ${
-          isDark
-            ? "border-white/10 bg-white/10 text-yellow-300 hover:bg-white/20"
-            : "border-neutral-900/10 bg-neutral-900/5 text-blue-600 hover:bg-neutral-900/10"
-        }
-      `}
-    >
-      <AnimatePresence mode="wait" initial={false}>
-        {isDark ? (
-          <motion.span
-            key="sun"
-            initial={{ opacity: 0, rotate: -90, scale: 0.6 }}
-            animate={{ opacity: 1, rotate: 0, scale: 1 }}
-            exit={{ opacity: 0, rotate: 90, scale: 0.6 }}
-            transition={{ duration: 0.2 }}
-            className="flex items-center justify-center"
-          >
-            <Sun size={19} />
-          </motion.span>
-        ) : (
-          <motion.span
-            key="moon"
-            initial={{ opacity: 0, rotate: 90, scale: 0.6 }}
-            animate={{ opacity: 1, rotate: 0, scale: 1 }}
-            exit={{ opacity: 0, rotate: -90, scale: 0.6 }}
-            transition={{ duration: 0.2 }}
-            className="flex items-center justify-center"
-          >
-            <Moon size={19} />
-          </motion.span>
-        )}
-      </AnimatePresence>
-    </motion.button>
-  );
 
   return (
     <>
@@ -282,9 +228,6 @@ export default function Navbar() {
                   )
                 )}
               </div>
-              <div className="ml-6">
-                <ThemeToggle />
-              </div>
               <div className="ml-4 shrink-0">
                 <Button
                   text="Let's Talk"
@@ -296,11 +239,7 @@ export default function Navbar() {
             </motion.div>
           )}
         </AnimatePresence>
-        {compact && (
-          <div className="ml-auto hidden md:block">
-            <ThemeToggle />
-          </div>
-        )}
+  
         <motion.button
           type="button"
           whileTap={{ scale: 0.9 }}
