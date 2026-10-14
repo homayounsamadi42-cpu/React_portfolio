@@ -1,4 +1,4 @@
-
+import emailjs from "@emailjs/browser";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import {
@@ -40,6 +40,11 @@ const fadeUp = {
 };
 
 export default function Contact() {
+  const [isSending, setIsSending] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState({
+  type: "",
+  message: "",
+});
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -54,17 +59,57 @@ export default function Contact() {
     });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const recipient = "homayounsamdi42@gmail.com";
-    const subject = encodeURIComponent(form.subject);
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`
+  
+const handleSubmit = async (event) => {
+  event.preventDefault();
+
+  if (isSending) return;
+
+  setIsSending(true);
+  setSubmitStatus({ type: "", message: "" });
+
+  try {
+    const templateParams = {
+      from_name: form.name,
+      from_email: form.email,
+      subject: form.subject,
+      message: form.message,
+      to_email: "homayounsamadi42@gmail.com",
+    };
+
+    await emailjs.send(
+      "service_x3kdvm3",
+      "template_qm03rq8",
+      templateParams,
+      {
+        publicKey: "Xn7FeR5nEAs4LVxRK",
+      }
     );
 
-    window.location.href =
-      `mailto:${recipient}?subject=${subject}&body=${body}`;
-  };
+    setSubmitStatus({
+      type: "success",
+      message: "Message sent successfully! Thank you for contacting me.",
+    });
+
+    setForm({
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
+    });
+  } catch (error) {
+    console.error("EmailJS error:", error);
+
+    setSubmitStatus({
+      type: "error",
+      message:
+        "Your message could not be sent. Please try again or email me directly.",
+    });
+  } finally {
+    setIsSending(false);
+  }
+};
+
 
   const inputClass =
     "w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-sm text-white outline-none placeholder:text-white/30 transition focus:border-blue-500/60 focus:bg-blue-500/[0.04]";
@@ -313,25 +358,37 @@ export default function Contact() {
                     className={`${inputClass} resize-y`}
                   />
                 </div>
-
                 <motion.button
                   type="submit"
-                  whileHover={{ scale: 1.015 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="group flex w-full items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-5 py-4 text-sm font-medium text-white shadow-lg shadow-blue-900/20 transition hover:shadow-blue-600/20"
+                  disabled={isSending}
+                  whileHover={isSending ? undefined : { scale: 1.015 }}
+                  whileTap={isSending ? undefined : { scale: 0.98 }}
+                  className="group flex w-full items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-5 py-4 text-sm font-medium text-white shadow-lg shadow-blue-900/20 transition hover:shadow-blue-600/20 disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  Send Message
+                  {isSending ? "Sending..." : "Send Message"}
+
                   <Send
                     size={16}
                     className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-1"
                   />
                 </motion.button>
-
+                
+                {submitStatus.message && (
+                  <p
+                    role="status"
+                    aria-live="polite"
+                    className={`text-center text-sm leading-6 ${
+                      submitStatus.type === "success"
+                        ? "text-green-400"
+                        : "text-red-400"
+                    }`}
+                  >
+                    {submitStatus.message}
+                  </p>
+                )}
                 <p className="text-center text-[10px] leading-5 text-white/25">
-                  Submitting opens your email application.
-                  <br />
-                  Replace the example email before publishing.
-                </p>
+                Your message will be sent securely through our email service.
+              </p>
               </form>
             </div>
           </motion.div>

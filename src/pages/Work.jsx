@@ -113,8 +113,8 @@ const projects = [
       "Foundation for CRUD operations",
     ],
     technologies: ["Python", "MySQL", "SQL"],
-    live: "",
-    github: "",
+    live: "#",
+    github: "#",
     accent: "from-emerald-500/20 via-teal-500/5 to-transparent",
   },
   {
