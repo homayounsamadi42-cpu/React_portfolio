@@ -88,7 +88,7 @@ export default function Hero() {
               rounded-full bg-blue-500
             "
           />
-          <span>Available for work</span>
+          <span>Available for opportunities</span>
         </div>
         <div
           className="
@@ -97,7 +97,7 @@ export default function Hero() {
           "
         >
           <div>
-            <h1 className="text-gray-100">JONIOR</h1>
+            <h1 className="text-gray-100">JUNIOR</h1>
             <h1
               className="
                 text-[clamp(4em,11vw,10rem)]
@@ -114,7 +114,7 @@ export default function Hero() {
                     : "text-neutral-950/20"
                 }
               >
-                DESIGNER
+                DEVELOPER
               </span>
             </h1>
             <div className="mt-10 max-w-xl">
